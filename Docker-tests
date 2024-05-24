@@ -1,0 +1,45 @@
+
+==============================   3GB pw-wiki  ==============
+FROM mcr.microsoft.com/playwright:v1.40.0-jammy
+WORKDIR /app
+COPY package.json package-lock.json ./
+
+RUN npm install 
+RUN npx playwright install
+
+COPY . .
+
+CMD ["npx", "playwright", "test", "wiki_2tests.spec.ts"]
+=========================================================
+
+
+============================  2.8GB  pw-wiki2   =======================
+FROM node:20-bookworm
+WORKDIR /app
+COPY package.json package-lock.json ./
+
+RUN npm install 
+RUN npx -y playwright@1.44.0 install --with-deps
+
+COPY . .
+
+CMD ["npx", "playwright", "test", "wiki_2tests.spec.ts"]
+========================================================
+
+
+
+============================  2.8GB  pw-wiki3   =======================
+FROM node:latest
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install 
+RUN npx -y playwright@1.44.0 install --with-deps
+COPY . .
+CMD ["npx", "playwright", "test", "wiki_2tests.spec.ts"]
+
+========================================================
+
+
+============================      =======================
+
+========================================================
